@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>만다라트 다이어그램</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="controls">
+            <!-- 뷰 토글 버튼을 맨 앞으로 이동 -->
+            <button id="viewToggleBtn" class="view-toggle-btn">GridView</button>
+            
+            <!-- 컬렉션 선택 UI -->
+            <div class="collection-selector">
+                <!-- 현재 컬렉션 표시 -->
+                <div id="currentCollectionDisplay" class="current-collection">
+                    현재 컬렉션: <span id="currentCollectionName">선택되지 않음</span>
+                </div>
+                <input type="password" id="authCodeInput" placeholder="승인번호" maxlength="4">
+                <select id="collectionSelect">
+                    <option value="">컬렉션 선택</option>
+                </select>
+            </div>
+            
+            <!-- 버튼 그룹 -->
+            <div class="button-group">
+                <button id="saveBtn" class="save-all-btn">신규생성</button>
+                <button id="saveCurrentBtn" class="save-current-btn">다른이름으로 저장</button>
+            </div>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+        
+        <!-- 그리드 보기 컨테이너 -->
+        <div class="view-container" id="gridViewContainer">
+            <div class="mandal-container">
+                <div class="mandal-grid-full" id="fullGrid"></div>
+            </div>
+        </div>
+        
+        <!-- 트리 보기 컨테이너 -->
+        <div class="view-container" id="treeViewContainer" style="display: none;">
+            <div class="tree-layout">
+                <div class="tree-column" id="mainGoalColumn">
+                    <h3 class="column-title">메인 목표</h3>
+                    <div class="tree-node-container" id="mainGoalNode"></div>
+                </div>
+                <div class="tree-column" id="milestonesColumn">
+                    <h3 class="column-title">마일스톤</h3>
+                    <div class="tree-node-container" id="milestonesNodes"></div>
+                </div>
+                <div class="tree-column" id="tasksColumn">
+                    <h3 class="column-title">태스크</h3>
+                    <div class="tree-node-container" id="tasksNodes"></div>
+                </div>
+                <div class="tree-column" id="subTasksColumn">
+                    <h3 class="column-title">하위 태스크</h3>
+                    <div class="tree-node-container" id="subTasksNodes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 통합 모달 -->
+    <div class="modal" id="subGridModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">하위 목표</h2>
+            <div id="modalContentContainer">
+                <div class="mandal-grid" id="subGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 사이드바 모달 수정 -->
+    <div class="sidebar-modal" id="detailSidebar">
+        <span class="close-sidebar">&times;</span>
+        <h2 id="sidebarTitle">태스크</h2>
+        <div id="sidebarContent"></div>
+    </div>
+
+    <!-- 저장 완료 메시지 -->
+    <div class="save-toast" id="saveToast">MongoDB에 저장되었습니다</div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html> 
