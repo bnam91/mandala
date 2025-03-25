@@ -1,7 +1,7 @@
 export default class StorageUtil {
     constructor(userId = 'default_user') {
         this.userId = userId;
-        this.apiUrl = 'http://localhost:3001/api/mandalart'; // 서버 URL 수정 (3000 -> 3001)
+        this.apiUrl = '/api/mandalart'; // 현재 하드코딩된 localhost를 상대 경로로 변경
         
         // 현재 URL 로깅하여 확인
         console.log('API URL:', this.apiUrl);
@@ -110,9 +110,10 @@ export default class StorageUtil {
                 prefix = 'lucy';
             }
             
-            // URL에 prefix 파라미터 추가 - 반드시 prefix가 있을 때만 추가
+            // API URL 생성 - 여기가 문제일 수 있습니다
             const collectionsUrl = `${this.apiUrl.replace('/mandalart', '')}/collections${prefix ? `?prefix=${prefix}` : ''}`;
-            console.log('컬렉션 목록 요청 URL:', collectionsUrl);
+            
+            console.log(`컬렉션 요청 URL: ${collectionsUrl} (승인번호: ${authCode}, 접두사: ${prefix})`);
             
             const response = await fetch(collectionsUrl);
             
@@ -121,7 +122,7 @@ export default class StorageUtil {
             }
             
             const data = await response.json();
-            console.log('컬렉션 목록 응답:', data);
+            console.log('서버 응답:', data);
             
             return data.collections || [];
         } catch (error) {

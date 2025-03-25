@@ -397,11 +397,23 @@ class App {
             // 콤보박스 초기화
             this.collectionSelect.innerHTML = '<option value="">컬렉션 선택</option>';
             
-            // 승인번호에 맞는 컬렉션만 필터링 (이미 서버에서 필터링되어 옴)
-            console.log('승인번호에 해당하는 컬렉션 목록:', collections);
+            // 승인번호에 해당하는 접두사로 클라이언트에서 다시 한번 필터링
+            let filterPrefix = 'mandala_';
+            if (authCode === '0000') {
+                filterPrefix = 'mandala_goya_';
+            } else if (authCode === '0001') {
+                filterPrefix = 'mandala_lucy_';
+            }
+            
+            // 접두사로 추가 필터링
+            const filteredCollections = collections.filter(collection => 
+                collection.startsWith(filterPrefix)
+            );
+            
+            console.log('승인번호에 해당하는 필터링된 컬렉션 목록:', filteredCollections);
             
             // 컬렉션 목록 추가
-            collections.forEach(collection => {
+            filteredCollections.forEach(collection => {
                 const option = document.createElement('option');
                 option.value = collection;
                 option.textContent = collection;
